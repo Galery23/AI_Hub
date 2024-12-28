@@ -1,0 +1,30 @@
+[package]
+name = "test1"
+version = "0.1.0"
+description = "A Tauri App"
+authors = ["you"]
+edition = "2021"
+
+[lib]
+name = "test1_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "1.4.0", features = [] }
+
+[dependencies]
+tauri = { version = "1.5", features = ["shell-open", "window-all"] }
+tauri-plugin-opener = "1.0.0"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+window-shadows = "0.2"
+
+[target.'cfg(windows)'.dependencies]
+windows-sys = { version = "0.48", features = ["Win32_UI_WindowsAndMessaging"] }
+
+[features]
+# this feature is used for production builds or when `devPath` points to the filesystem and the built-in dev server is disabled.
+# If you use cargo directly instead of tauri's cli you can use this feature flag to switch between tauri's `dev` and `build` modes.
+# DO NOT REMOVE!!
+custom-protocol = ["tauri/custom-protocol"]
+
